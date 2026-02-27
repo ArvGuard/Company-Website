@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArvGuard — Coming Soon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #05070C;
+    --sky: #38BDF8;
+    --white: #E8EEF5;
+    --muted: #2D3E50;
+    --dim: #1A2535;
+  }
+
+  html, body { height: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* ── subtle grid ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── ambient glow ── */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -20vh; left: 50%;
+    transform: translateX(-50%);
+    width: 60vw; height: 60vw;
+    background: radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  * { position: relative; z-index: 1; }
+
+  /* ── layout ── */
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    text-align: center;
+    gap: 0;
+  }
+
+  /* ── mark ── */
+  .mark {
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  /* ── logo row ── */
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+
+  .wordmark {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(48px, 8vw, 88px);
+    color: var(--white);
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  /* ── tagline ── */
+  .tagline {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 72px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.55s both;
+  }
+
+  /* ── divider ── */
+  .divider {
+    width: 1px;
+    height: 64px;
+    background: linear-gradient(to bottom, transparent, var(--sky), transparent);
+    margin-bottom: 64px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.65s both;
+  }
+
+  /* ── headline ── */
+  .headline {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(20px, 3vw, 32px);
+    color: var(--white);
+    line-height: 1.4;
+    max-width: 560px;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.75s both;
+  }
+
+  .headline em {
+    font-style: normal;
+    color: var(--sky);
+  }
+
+  /* ── body ── */
+  .body-text {
+    font-size: 16px;
+    font-weight: 300;
+    color: #4A6070;
+    line-height: 1.8;
+    max-width: 420px;
+    margin-bottom: 64px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.85s both;
+  }
+
+  /* ── notify form ── */
+  .notify-form {
+    display: flex;
+    gap: 0;
+    max-width: 400px;
+    width: 100%;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.95s both;
+  }
+
+  .notify-input {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(56,189,248,0.2);
+    border-right: none;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 14px 20px;
+    outline: none;
+    border-radius: 4px 0 0 4px;
+    transition: border-color 0.2s;
+  }
+
+  .notify-input::placeholder { color: var(--muted); }
+  .notify-input:focus { border-color: rgba(56,189,248,0.5); }
+
+  .notify-btn {
+    background: var(--sky);
+    border: none;
+    color: #05070C;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 14px 24px;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+  }
+
+  .notify-btn:hover { background: #7DD3FC; }
+  .notify-btn:active { transform: scale(0.98); }
+
+  /* ── footer ── */
+  footer {
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    opacity: 0;
+    animation: fadeUp 0.6s ease 1.1s both;
+  }
+
+  .footer-domain {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--muted);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+  }
+
+  .footer-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--sky); }
+
+  /* ── node decorations ── */
+  .corner-mark {
+    position: fixed;
+    opacity: 0.12;
+  }
+  .corner-mark.tl { top: 32px; left: 32px; }
+  .corner-mark.br { bottom: 80px; right: 32px; transform: rotate(180deg); }
+
+  /* ── animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── node pulse ── */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .mark rect:nth-child(2) { animation: pulse 3s ease-in-out 0.5s infinite; }
+  .mark rect:nth-child(6) { animation: pulse 3s ease-in-out 1.2s infinite; }
+  .mark rect:nth-child(7) { animation: pulse 3s ease-in-out 1.8s infinite; }
+
+  @media (max-width: 600px) {
+    .notify-form { flex-direction: column; }
+    .notify-input { border-right: 1px solid rgba(56,189,248,0.2); border-bottom: none; border-radius: 4px 4px 0 0; }
+    .notify-btn { border-radius: 0 0 4px 4px; padding: 14px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .corner-mark { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Corner decorations -->
+<svg class="corner-mark tl" width="36" height="36" viewBox="0 0 72 72">
+  <rect x="0"  y="0"  width="20" height="20" rx="4" fill="#38BDF8"/>
+  <rect x="26" y="0"  width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+  <rect x="52" y="0"  width="20" height="20" rx="4" fill="#38BDF8"/>
+  <rect x="0"  y="26" width="20" height="20" rx="4" fill="#38BDF8"/>
+  <rect x="26" y="26" width="20" height="20" rx="4" fill="#38BDF8"/>
+  <rect x="52" y="26" width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+  <rect x="0"  y="52" width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+  <rect x="26" y="52" width="20" height="20" rx="4" fill="#38BDF8"/>
+  <rect x="52" y="52" width="20" height="20" rx="4" fill="#38BDF8"/>
+</svg>
+
+<svg class="corner-mark br" width="36" height="36" viewBox="0 0 72 72">
+  <rect x="0"  y="0"  width="20" height="20" rx="4" fill="#38BDF8"/>
+  <rect x="26" y="0"  width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+  <rect x="52" y="0"  width="20" height="20" rx="4" fill="#38BDF8"/>
+  <rect x="0"  y="26" width="20" height="20" rx="4" fill="#38BDF8"/>
+  <rect x="26" y="26" width="20" height="20" rx="4" fill="#38BDF8"/>
+  <rect x="52" y="26" width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+  <rect x="0"  y="52" width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+  <rect x="26" y="52" width="20" height="20" rx="4" fill="#38BDF8"/>
+  <rect x="52" y="52" width="20" height="20" rx="4" fill="#38BDF8"/>
+</svg>
+
+<main>
+
+  <!-- Mark -->
+  <svg class="mark" width="64" height="64" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0"  y="0"  width="20" height="20" rx="4" fill="#38BDF8"/>
+    <rect x="26" y="0"  width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+    <rect x="52" y="0"  width="20" height="20" rx="4" fill="#38BDF8"/>
+    <rect x="0"  y="26" width="20" height="20" rx="4" fill="#38BDF8"/>
+    <rect x="26" y="26" width="20" height="20" rx="4" fill="#38BDF8"/>
+    <rect x="52" y="26" width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+    <rect x="0"  y="52" width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+    <rect x="26" y="52" width="20" height="20" rx="4" fill="#38BDF8"/>
+    <rect x="52" y="52" width="20" height="20" rx="4" fill="#38BDF8"/>
+  </svg>
+
+  <!-- Wordmark -->
+  <div class="logo-row">
+    <span class="wordmark">ArvGuard</span>
+  </div>
+
+  <!-- Tagline -->
+  <div class="tagline">Digital Executor</div>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- Headline -->
+  <h1 class="headline">Something important<br>is <em>almost ready.</em></h1>
+
+  <!-- Body -->
+  <p class="body-text">We're putting the finishing touches on something built for the people you'll leave behind. Stay close.</p>
+
+  <!-- Notify -->
+  <form class="notify-form" onsubmit="handleSubmit(event)">
+    <input class="notify-input" type="email" placeholder="your@email.com" id="email-input" required>
+    <button class="notify-btn" type="submit">NOTIFY ME</button>
+  </form>
+
+</main>
+
+<footer>
+  <span class="footer-domain">ARVGUARD.COM</span>
+  <div class="footer-links">
+    <a href="https://arvguard.app">arvguard.app</a>
+    <a href="mailto:hello@arvguard.com">Contact</a>
+  </div>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.querySelector('.notify-btn');
+    const input = document.getElementById('email-input');
+    btn.textContent = 'SAVED ✓';
+    btn.style.background = '#22C55E';
+    input.value = '';
+    input.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'NOTIFY ME';
+      btn.style.background = '';
+      input.disabled = false;
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>
