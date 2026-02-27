@@ -332,19 +332,52 @@
 </footer>
 
 <script>
+  const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScj4vDNMgG4sOam3Yj6uns6oihazY-D2hCOPatx5zi45-Iv6w/formResponse';
+  const EMAIL_FIELD = 'entry.1506690194';
+
   function handleSubmit(e) {
     e.preventDefault();
     const btn = document.querySelector('.notify-btn');
     const input = document.getElementById('email-input');
-    btn.textContent = 'SAVED ✓';
-    btn.style.background = '#22C55E';
-    input.value = '';
-    input.disabled = true;
-    setTimeout(() => {
-      btn.textContent = 'NOTIFY ME';
-      btn.style.background = '';
-      input.disabled = false;
-    }, 3000);
+    const email = input.value.trim();
+
+    if (!email || !email.includes('@')) {
+      input.style.borderColor = 'rgba(248,113,113,0.5)';
+      setTimeout(() => {
+        input.style.borderColor = '';
+      }, 1500);
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'SAVING...';
+
+    fetch(FORM_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: new URLSearchParams({ [EMAIL_FIELD]: email })
+    })
+      .then(() => {
+        btn.textContent = 'SAVED ✓';
+        btn.style.background = '#22C55E';
+        input.value = '';
+        input.disabled = true;
+      })
+      .catch(() => {
+        btn.textContent = 'TRY AGAIN';
+        btn.style.background = '#EF4444';
+      })
+      .finally(() => {
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = 'NOTIFY ME';
+          btn.style.background = '';
+          input.disabled = false;
+        }, 3000);
+      });
   }
 </script>
 
