@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArvGuard — SMS Messaging Policy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#F8FAFC;color:#0F172A;min-height:100vh;display:flex;flex-direction:column}
+
+/* NAV */
+.nav{background:#0F172A;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;flex-shrink:0;position:sticky;top:0;z-index:100}
+.nav img{height:24px}
+.nav-right{display:flex;align-items:center;gap:24px}
+.nav-link{font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+.nav-link:hover{color:#fff}
+.nav-cta{font-size:13px;font-weight:500;color:#38BDF8;text-decoration:none}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#060F29 0%,#0F3070 100%);padding:64px 40px 56px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 100% at 50% 0%,rgba(56,189,248,.15) 0%,transparent 70%)}
+.hero-inner{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.hero-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#38BDF8;margin-bottom:14px}
+.hero-title{font-family:'DM Serif Display',serif;font-size:42px;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.02em}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.7;max-width:500px;margin:0 auto 28px}
+.hero-meta{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.04em}
+
+/* LAYOUT */
+.page{flex:1;max-width:780px;margin:0 auto;padding:56px 40px 80px;width:100%}
+
+/* TOC */
+.toc-card{background:#fff;border:1px solid #E2E8F0;border-radius:16px;padding:24px 28px;margin-bottom:40px}
+.toc-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#94A3B8;margin-bottom:14px}
+.toc-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.toc-list a{font-size:13px;color:#0284C7;text-decoration:none;padding:4px 0;display:flex;align-items:center;gap:8px}
+.toc-list a::before{content:'→';font-size:11px;color:#94A3B8}
+.toc-list a:hover{color:#0F172A}
+
+/* SECTIONS */
+.policy-section{margin-bottom:48px;scroll-margin-top:80px}
+.section-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#38BDF8;margin-bottom:6px}
+.section-title{font-family:'DM Serif Display',serif;font-size:26px;color:#0F172A;margin-bottom:16px;letter-spacing:-.01em}
+.policy-text{font-size:15px;color:#475569;line-height:1.8;margin-bottom:14px}
+.policy-text:last-child{margin-bottom:0}
+.policy-text a{color:#0284C7;text-decoration:underline}
+.policy-text strong{color:#0F172A;font-weight:600}
+
+/* HIGHLIGHT BOXES */
+.highlight{border-radius:12px;padding:20px 24px;margin:20px 0}
+.highlight.blue{background:#EFF6FF;border:1px solid #BFDBFE}
+.highlight.green{background:#F0FDF4;border:1px solid #BBF7D0}
+.highlight.amber{background:#FFFBEB;border:1px solid #FDE68A}
+.highlight.slate{background:#F8FAFC;border:1px solid #E2E8F0}
+.highlight-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.highlight.blue .highlight-title{color:#1D4ED8}
+.highlight.green .highlight-title{color:#15803D}
+.highlight.amber .highlight-title{color:#B45309}
+.highlight.slate .highlight-title{color:#64748B}
+.highlight p,.highlight li{font-size:13px;line-height:1.8;color:#475569}
+.highlight ul{list-style:none;padding:0}
+.highlight ul li::before{content:'·';margin-right:8px;color:#94A3B8}
+
+/* COMMAND TABLE */
+.cmd-table{width:100%;border-collapse:collapse;margin:16px 0;border-radius:12px;overflow:hidden;border:1px solid #E2E8F0}
+.cmd-table th{background:#0F172A;color:#fff;padding:12px 20px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.cmd-table td{padding:14px 20px;font-size:14px;border-bottom:1px solid #E2E8F0;background:#fff;vertical-align:middle}
+.cmd-table tr:last-child td{border-bottom:none}
+.cmd-table tr:hover td{background:#F8FAFC}
+.cmd-pill{display:inline-block;background:#0F172A;color:#38BDF8;font-family:monospace;font-size:13px;font-weight:600;padding:3px 10px;border-radius:5px;letter-spacing:.06em}
+
+/* DIVIDER */
+.divider{border:none;border-top:1px solid #E2E8F0;margin:48px 0}
+
+/* EFFECTIVE DATE BADGE */
+.date-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #E2E8F0;border-radius:9999px;padding:6px 16px;font-size:12px;color:#64748B;margin-bottom:32px}
+.date-dot{width:6px;height:6px;border-radius:50%;background:#38BDF8}
+
+/* CONTACT CARD */
+.contact-card{background:linear-gradient(135deg,#0F172A,#1E293B);border-radius:16px;padding:32px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:40px}
+.contact-card h3{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;margin-bottom:6px}
+.contact-card p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6}
+.contact-btn{display:inline-flex;align-items:center;gap:8px;background:#38BDF8;color:#0F172A;font-size:14px;font-weight:600;padding:12px 24px;border-radius:10px;text-decoration:none;white-space:nowrap;transition:all .2s}
+.contact-btn:hover{background:#7DD8FB;transform:translateY(-1px)}
+
+/* FOOTER */
+.footer{background:#0F172A;padding:24px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;flex-shrink:0}
+.footer-left{font-size:11px;color:rgba(255,255,255,.35);line-height:1.7}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:11px;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:rgba(255,255,255,.8)}
+
+@media(max-width:600px){
+  .nav{padding:0 20px}
+  .hero{padding:48px 24px 40px}
+  .hero-title{font-size:32px}
+  .page{padding:40px 20px 60px}
+  .toc-list{grid-template-columns:1fr}
+  .contact-card{text-align:center;justify-content:center}
+  .footer{padding:20px 24px;flex-direction:column;text-align:center}
+  .footer-links{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <img src="data:image/png;base64,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Z258+5SWmasnIpI3d18feFnNbSVxMd5B6x7kxt23IirWHXh4jIXeJrT4IsfaRNuBPkd0MehJM+uk6T2SQDzq4OVEv496iH4f/UPvhfamAj0D2y9YPq3LBz4CbEt0levFOacE0R+7BzBfgtsfKnN60mzf0rDigr5DcWYabOOwQTPPPRqHp7rglgFnCdhFeSzmNqu3b0O6bIqvyP9n0SbjK5/z/sW79Nyfdy4iIiIiIhNR7kXBRLD9/L6NutzXzuv81uXLF81Z44a8zj+S4oJnd2Cl5TLKwCbhmD2a1TB2EREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREZEOZHkn0OmKC5dNZUXXFIPJeeVgk/GVz3n/4l167s8rh5nzlm81YAOzzGwb8G2BTcnxNQEeA5aY280ru3zJjbN7rmp2AjN7+//HzbfF2QbYGnh5s3Oo0Qd2u5nfPOC+ZMDtdzfN7Xkwx3xERERERCYcFegZ2GFB38YDK231vPMYy6Kdu+9o1rmKvf0/Av9ws85Xp/uMgf0WzVnjhqxPVJzf/yFs4BywV2R9rgY8B35KZc6U4/JORERERERkolCBHtjMef1vyjuHxCbz3KKduu/JKvyMBX3vMud7wNpZnSOwAYMzF83pOTyrExR7+34JvC+r+Bm41QZs32Ze0BERERERmahUoAey/TXL1p/U1bVm3nnUI4via8aC/j3M/Reh4zZJuTKn592hgxZ7+6rAhqHjNkEfA7Z1ZefuP+WdiIiIiIhIJ+vKO4FO0a7FOcDMhf2bhI5p7ueFjtlEpRm9y/YLGbA4v+9btGdxDtBD18BFeSchIiIiItLpVKAHsN2C/s3zzqEhK1gtZLhib9//Aq8KGbPZDDtrx3nL1g0Ra+aCZXMwPhUiVn5s+2Jv/5F5ZyEiIiIi0slUoDdoVu+y9SavbP/XMdTc+Rm9fbsAu4eIlbOXrOji9BCB3O08OmI6iR+TdwYiIiIiIp2s7QvLvK30rhflnUMrMfO35p1DKOYW6mt5Y6A4eVu9uKC/nRa4ExERERFpKyrQG9TlTMo7h1Bm9S5br9EY5rZtiFxa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VaKpH/X8nhmcjpPk55BSsbBXuVI9pY7ziIhIE4w0PFJSmDmvv6O2Klm0c3faeaHPKy5cNpUBC/EPUcsw9xMXzZ2SZC7niGbO7yu7RUOSO4P/qzJnyivzzkJEREREpBNpiLuIiIiIiIhIC1CBLiIiIiIiItICVKCLiIiIiIiItAAV6CIiIiIiIiItQAW6iIiIiIiISAtQgS4iIiIiIiLSAlSgi4iIiIiIiLQAFejyPJuMN3J8ZacpS4GVYbJpDW72WGPH09Dxraex10NEREREREanAl2GDPiyAFH+FCBGyxjo6rq5kePNWRIql9ZgDb0eIiIiIiIyOhXo8rwb5vQ80HiUjirglt+40+oNfT2NFvitxt076usREREREWklKtAbtNK8P+8cWkmHFXB3NBpg8ezVlwCd8x6ZNNBhIwJERERERFqHCvQG3Ti35768cwjBYUWIOIvn9nwL7IkQsfLn3wkSxbgoRJwWcMvindao5J2EiIiIiEinUoEewArz/+adQ6MqO3eHmzvufDpYrLwYV1fmTPleiFCLZ/cciPFQiFg56l9ptk/eSYiIiIiIdDIV6AHcNLfnwRWTGMg7j3ot2rm74aHctSpzuy8Dfh4yZjM5PFWZ3fPOoEFX+sei0O3Kjr1pdvddeWchIiIiItLJVKAHctPs7rvasUjPqve/MqdnT8cWZRE7Sw5PdTkfCR23svOU69w5nEBTCZrK/NLKnO7T805DRERERKTTWd4JdJrtr1m2/qSurjXzzmM8KyYx0Iwe0ZkL+g5350SgO+tzBfCbypyeXbM8QbF3+dYwcBHwpizPE8jjbvapxbO7f5l3IiIiIiIiE4EK9IzMXNhXMKzHV7TWa+ywoqtr4Nkb5kx5uFnnLM7r35QuPw2YCbyqWedNqB/8j2acv2j2lAuaddIZC5Yd3+W2h8MmwKRmnTehpe62YPHc7v3zTkREREREZCJpqeJRJoaZvf27O2wGA6vlk0GXw8CjNjBpyaKdV781nxyGFBc8uwN0bYP7K3JLwruetS6/fdHsnmtyy0FERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERNrZ/wNF8PHmZ3lY0AAAAABJRU5ErkJggg==" alt="ArvGuard">
+  <div class="nav-right">
+    <a href="https://arvguard.com/privacy" class="nav-link">Privacy Policy</a>
+    <a href="https://arvguard.com/terms" class="nav-link">Terms of Service</a>
+    <a href="https://arvguard.com/sms-consent" class="nav-cta">Manage SMS →</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Legal &amp; Compliance</div>
+    <h1 class="hero-title">SMS Messaging Policy</h1>
+    <p class="hero-sub">This policy governs how ArvGuard uses SMS text messaging to communicate with users of the ArvGuard Digital Executor platform.</p>
+    <p class="hero-meta">Effective Date: January 1, 2026 &nbsp;·&nbsp; Last Updated: February 2026</p>
+  </div>
+</div>
+
+<main class="page">
+
+  <div class="date-badge">
+    <div class="date-dot"></div>
+    Effective January 1, 2026 — ArvGuard LLC
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc-card">
+    <div class="toc-title">Contents</div>
+    <ul class="toc-list">
+      <li><a href="#overview">Program Overview</a></li>
+      <li><a href="#consent">How We Obtain Consent</a></li>
+      <li><a href="#message-types">Types of Messages</a></li>
+      <li><a href="#frequency">Message Frequency</a></li>
+      <li><a href="#opt-out">How to Opt Out</a></li>
+      <li><a href="#help">Getting Help</a></li>
+      <li><a href="#rates">Rates &amp; Charges</a></li>
+      <li><a href="#carriers">Carrier Support</a></li>
+      <li><a href="#data">Data &amp; Privacy</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+  </div>
+
+  <!-- 1. OVERVIEW -->
+  <section class="policy-section" id="overview">
+    <div class="section-num">01</div>
+    <h2 class="section-title">Program Overview</h2>
+    <p class="policy-text">ArvGuard LLC ("ArvGuard," "we," "our," or "us") operates an SMS messaging program to support users of the ArvGuard Digital Executor platform. These messages are an integral part of our alive check system, vault security monitoring, and executor coordination services.</p>
+    <p class="policy-text">This policy applies to all SMS communications sent by ArvGuard to users who have opted in to receive text message notifications. By opting in, you agree to the terms of this policy, our <a href="https://arvguard.com/terms">Terms of Service</a>, and our <a href="https://arvguard.com/privacy">Privacy Policy</a>.</p>
+    <div class="highlight blue">
+      <div class="highlight-title">Program Name</div>
+      <p><strong>ArvGuard Digital Executor SMS Notifications</strong> — Recurring automated messages related to vault activity, alive check reminders, and executor status updates. This is not a marketing program.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 2. CONSENT -->
+  <section class="policy-section" id="consent">
+    <div class="section-num">02</div>
+    <h2 class="section-title">How We Obtain Consent</h2>
+    <p class="policy-text">ArvGuard only sends SMS messages to users who have provided <strong>express written consent</strong>. Consent is collected through our SMS opt-in page at <a href="https://arvguard.com/sms-consent">arvguard.com/sms-consent</a>, where users must:</p>
+    <div class="highlight slate">
+      <ul>
+        <li>Provide a valid U.S. mobile phone number</li>
+        <li>Check an explicit opt-in checkbox with clear consent language</li>
+        <li>Acknowledge that message and data rates may apply</li>
+        <li>Acknowledge they can opt out at any time by replying STOP</li>
+        <li>Review links to our Terms of Service and Privacy Policy</li>
+      </ul>
+    </div>
+    <p class="policy-text">Consent to receive SMS messages is <strong>never</strong> a condition of purchasing or using ArvGuard services. Users may use the full ArvGuard platform without enabling SMS notifications.</p>
+    <p class="policy-text">Consent records, including timestamp, IP address, phone number, and opt-in page URL, are retained for a minimum of four (4) years in accordance with TCPA recordkeeping requirements.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 3. MESSAGE TYPES -->
+  <section class="policy-section" id="message-types">
+    <div class="section-num">03</div>
+    <h2 class="section-title">Types of Messages</h2>
+    <p class="policy-text">ArvGuard sends the following categories of SMS messages to opted-in users:</p>
+
+    <div class="highlight green" style="margin-bottom:12px">
+      <div class="highlight-title">🔔 Alive Check Reminders</div>
+      <p>Periodic check-in prompts sent according to your configured alive check schedule. These messages confirm you are active and prevent unintended executor processes from initiating. Example: <em>"ArvGuard: Time for your monthly check-in. Reply YES to confirm you're active, or visit app.arvguard.com. Reply STOP to opt out."</em></p>
+    </div>
+
+    <div class="highlight blue" style="margin-bottom:12px">
+      <div class="highlight-title">🔒 Vault Security Alerts</div>
+      <p>Real-time notifications for significant vault events including login from a new device, changes to executor contacts, vault access attempts, or security setting modifications. These are transactional messages tied directly to account security.</p>
+    </div>
+
+    <div class="highlight amber" style="margin-bottom:12px">
+      <div class="highlight-title">👤 Executor Status Updates</div>
+      <p>Critical escalation messages sent when your account enters an alive check escalation state, when an executor process is initiated, or when a waiting period countdown is active. These messages include links to take action in the ArvGuard app.</p>
+    </div>
+
+    <div class="highlight slate">
+      <div class="highlight-title">✉️ Transactional Confirmations</div>
+      <p>One-time messages confirming account actions such as opt-in confirmation, phone number verification codes (OTP), password reset confirmation, and executor assignment notifications.</p>
+    </div>
+
+    <p class="policy-text" style="margin-top:20px">ArvGuard does <strong>not</strong> use SMS for marketing promotions, sales offers, or third-party advertising.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 4. FREQUENCY -->
+  <section class="policy-section" id="frequency">
+    <div class="section-num">04</div>
+    <h2 class="section-title">Message Frequency</h2>
+    <p class="policy-text">Message frequency varies based on your alive check schedule and account activity. Typical frequency ranges are:</p>
+    <div class="highlight slate">
+      <ul>
+        <li><strong>Alive Check Reminders:</strong> 1–4 messages per month (based on your configured check-in interval)</li>
+        <li><strong>Security Alerts:</strong> Only sent when triggered by account activity (typically 0–5 per month)</li>
+        <li><strong>Escalation Messages:</strong> Up to 8 messages during an alive check escalation sequence</li>
+        <li><strong>Verification Codes:</strong> On-demand only, when you initiate an action requiring verification</li>
+      </ul>
+    </div>
+    <p class="policy-text">You can adjust your alive check interval — and therefore the baseline frequency of check-in reminders — at any time in your ArvGuard account settings.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 5. OPT OUT -->
+  <section class="policy-section" id="opt-out">
+    <div class="section-num">05</div>
+    <h2 class="section-title">How to Opt Out (STOP)</h2>
+    <p class="policy-text">You may opt out of ArvGuard SMS messages at any time using any of the following methods:</p>
+
+    <table class="cmd-table">
+      <thead>
+        <tr><th>Method</th><th>Action</th><th>Result</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="cmd-pill">STOP</span></td>
+          <td>Reply STOP to any ArvGuard message</td>
+          <td>Immediately unsubscribed from all SMS</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-pill">STOPALL</span></td>
+          <td>Reply STOPALL to any message</td>
+          <td>Unsubscribed from all message types</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-pill">UNSUBSCRIBE</span></td>
+          <td>Reply UNSUBSCRIBE to any message</td>
+          <td>Immediately unsubscribed</td>
+        </tr>
+        <tr>
+          <td>App Settings</td>
+          <td>Disable SMS in ArvGuard account settings</td>
+          <td>SMS disabled, account remains active</td>
+        </tr>
+        <tr>
+          <td>Email Request</td>
+          <td>Email support@arvguard.com</td>
+          <td>Removed within 2 business days</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight amber">
+      <div class="highlight-title">⚠️ Important — Alive Check Impact</div>
+      <p>If you opt out of SMS and your alive check schedule relies on SMS-based check-ins, your account will fall back to email-only check-ins. We strongly recommend updating your alive check settings in the app after opting out to ensure your executor process is not accidentally triggered. Opting out of SMS does not deactivate your ArvGuard account.</p>
+    </div>
+
+    <p class="policy-text">After opting out, you will receive one final confirmation message: <em>"You have been unsubscribed from ArvGuard SMS alerts. No further messages will be sent. Reply START to re-subscribe."</em></p>
+    <p class="policy-text">To re-subscribe after opting out, reply <strong>START</strong> to any previous ArvGuard message, or visit <a href="https://arvguard.com/sms-consent">arvguard.com/sms-consent</a>.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 6. HELP -->
+  <section class="policy-section" id="help">
+    <div class="section-num">06</div>
+    <h2 class="section-title">Getting Help (HELP)</h2>
+    <p class="policy-text">Reply <strong>HELP</strong> to any ArvGuard message at any time to receive assistance information. You will receive a response similar to:</p>
+    <div class="highlight slate">
+      <p><em>"ArvGuard Help: For support visit arvguard.com/support or email support@arvguard.com. Reply STOP to unsubscribe. Msg &amp; data rates may apply."</em></p>
+    </div>
+    <p class="policy-text">You may also contact our support team directly at any time — see the <a href="#contact">Contact Us</a> section below.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 7. RATES -->
+  <section class="policy-section" id="rates">
+    <div class="section-num">07</div>
+    <h2 class="section-title">Rates &amp; Charges</h2>
+    <p class="policy-text"><strong>Message and data rates may apply.</strong> ArvGuard does not charge users for SMS messages beyond any standard carrier fees that your mobile plan may incur. Whether a message counts against your plan depends on your carrier and plan type.</p>
+    <p class="policy-text">If you are unsure whether your plan includes unlimited messaging, contact your mobile carrier directly. ArvGuard is not responsible for any charges your carrier may apply to text messages sent or received.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 8. CARRIERS -->
+  <section class="policy-section" id="carriers">
+    <div class="section-num">08</div>
+    <h2 class="section-title">Carrier Support</h2>
+    <p class="policy-text">ArvGuard SMS messages are supported on all major U.S. carriers including AT&amp;T, T-Mobile, Verizon, Sprint, Boost Mobile, Cricket Wireless, Metro PCS, U.S. Cellular, and others. Carrier availability may vary.</p>
+    <p class="policy-text">ArvGuard is not liable for delayed or undelivered messages. Delivery depends on network availability and carrier processing. For time-sensitive communications, always check the ArvGuard app directly.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 9. DATA & PRIVACY -->
+  <section class="policy-section" id="data">
+    <div class="section-num">09</div>
+    <h2 class="section-title">Data &amp; Privacy</h2>
+    <p class="policy-text">Your mobile phone number and SMS consent records are handled in accordance with ArvGuard's <a href="https://arvguard.com/privacy">Privacy Policy</a>. Specifically:</p>
+    <div class="highlight slate">
+      <ul>
+        <li>Your phone number is used solely for ArvGuard service communications</li>
+        <li>We do not sell, rent, or share your phone number with third-party marketers</li>
+        <li>Your number may be shared with our SMS delivery provider (e.g., Twilio) solely for the purpose of transmitting messages</li>
+        <li>Opt-in records are retained for a minimum of 4 years for TCPA compliance</li>
+        <li>You may request deletion of your phone number by contacting support (subject to legal retention requirements)</li>
+      </ul>
+    </div>
+    <p class="policy-text">ArvGuard complies with the Telephone Consumer Protection Act (TCPA), CTIA guidelines, and all applicable state regulations governing SMS marketing and transactional messaging.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 10. CONTACT -->
+  <section class="policy-section" id="contact">
+    <div class="section-num">10</div>
+    <h2 class="section-title">Contact Us</h2>
+    <p class="policy-text">For questions about this SMS Policy, to opt out, or to request changes to your SMS preferences:</p>
+    <div class="highlight slate">
+      <ul>
+        <li><strong>Email:</strong> support@arvguard.com</li>
+        <li><strong>Website:</strong> <a href="https://arvguard.com/support">arvguard.com/support</a></li>
+        <li><strong>Mailing Address:</strong> ArvGuard LLC, Star, Idaho 83669</li>
+        <li><strong>Opt-in / Opt-out page:</strong> <a href="https://arvguard.com/sms-consent">arvguard.com/sms-consent</a></li>
+      </ul>
+    </div>
+
+    <div class="contact-card">
+      <div>
+        <h3>Questions about SMS?</h3>
+        <p>Our support team typically responds within one business day.</p>
+      </div>
+      <a href="mailto:support@arvguard.com" class="contact-btn">✉ Email Support</a>
+    </div>
+  </section>
+
+  <p style="font-size:12px;color:#94A3B8;text-align:center;margin-top:48px">
+    This policy was last updated February 2026. ArvGuard reserves the right to update this SMS Policy at any time. Material changes will be communicated via email and in-app notification.
+  </p>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-left">
+    © 2026 ArvGuard LLC · Digital Executor Platform<br>
+    Star, Idaho 83669 · support@arvguard.com
+  </div>
+  <div class="footer-links">
+    <a href="https://arvguard.com/terms">Terms of Service</a>
+    <a href="https://arvguard.com/privacy">Privacy Policy</a>
+    <a href="https://arvguard.com/sms-policy">SMS Policy</a>
+    <a href="https://arvguard.com/sms-consent">Manage SMS</a>
+  </div>
+</footer>
+
+</body>
+</html>
