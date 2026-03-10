@@ -1120,19 +1120,8 @@ body::after {
 .pricing-features li:hover::before { color: var(--sky); }
 
 /* F. CURSOR SPARKLE TRAIL */
-.sparkle {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9997;
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: var(--sky);
-  transform: translate(-50%, -50%);
-  animation: sparkleFade 0.6s ease forwards;
-}
-@keyframes sparkleFade {
-  0%   { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0;   transform: translate(-50%, -50%) scale(0) translateY(-12px); }
+
+
 }
 
 /* G. GHOST SECTION NUMBERS */
@@ -1203,6 +1192,57 @@ body::after {
   transition: width 0.25s ease;
 }
 .nav-links a:not(.nav-cta):hover::after { width: 100%; }
+
+
+/* ── BILLING TOGGLE ──────────────────────────────────────────────────────── */
+.billing-toggle {
+  display: inline-flex;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+  margin-top: 24px;
+}
+.toggle-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toggle-btn.active {
+  background: var(--sky);
+  color: #000;
+}
+.save-badge {
+  background: rgba(0,0,0,0.2);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+.pricing-badge {
+  display: inline-block;
+  background: var(--sky);
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
 
 </style>
 </head>
@@ -1476,35 +1516,40 @@ body::after {
       <div class="section-eyebrow">Pricing</div>
       <h2>Simple, honest pricing.</h2>
       <p>Less than the cost of a streaming subscription. The cheapest insurance your family will ever have.</p>
+      <div class="billing-toggle">
+        <button class="toggle-btn active" id="toggle-yearly" onclick="setBilling('yearly')">Yearly <span class="save-badge">Save 17%</span></button>
+        <button class="toggle-btn" id="toggle-monthly" onclick="setBilling('monthly')">Monthly</button>
+      </div>
     </div>
     <div class="pricing-grid pricing-grid-2col">
       <div class="pricing-card reveal reveal-delay-1">
         <div class="tilt-shine"></div>
         <div class="pricing-name">Individual</div>
-        <div class="pricing-price">$49.99</div>
-        <div class="pricing-period">per year · 1 user · 14-day free trial</div>
+        <div class="pricing-price" id="price-individual">$49.99</div>
+        <div class="pricing-period" id="period-individual">per year · 1 user · 7-day free trial</div>
         <ul class="pricing-features">
-          <li>Unlimited account inventory</li>
+          <li>Your own encrypted vault</li>
+          <li>Unlimited asset inventory</li>
           <li>Instruction layer per asset</li>
-          <li>Encrypted vault storage</li>
           <li>Up to 3 trusted contacts</li>
-          <li>Monthly alive check</li>
+          <li>Alive check system</li>
           <li>2-stage release workflow</li>
         </ul>
         <a href="#pricing" class="pricing-btn pricing-btn-outline">Start free trial</a>
       </div>
       <div class="pricing-card featured reveal reveal-delay-2">
         <div class="tilt-shine"></div>
+        <div class="pricing-badge">Most Popular</div>
         <div class="pricing-name">Family</div>
-        <div class="pricing-price">$99</div>
-        <div class="pricing-period">per year · up to 6 members · 14-day free trial</div>
+        <div class="pricing-price" id="price-family">$99.99</div>
+        <div class="pricing-period" id="period-family">per year · up to 4 members · 7-day free trial</div>
         <ul class="pricing-features">
-          <li>Everything in Individual</li>
-          <li>6 family member vaults</li>
-          <li>Shared asset inventory</li>
-          <li>Joint trusted contact quorum</li>
-          <li>Priority support</li>
-          <li>Family legacy package export</li>
+          <li>Up to 4 separate member vaults</li>
+          <li>Each member has their own private vault</li>
+          <li>One billing owner, individual accounts</li>
+          <li>Invite members from ArvGuard settings</li>
+          <li>Alive check for every member</li>
+          <li>Controlled release access per vault</li>
         </ul>
         <a href="#pricing" class="pricing-btn pricing-btn-fill">Start free trial</a>
       </div>
@@ -1562,7 +1607,7 @@ body::after {
         <li><a href="#pricing">About</a></li>
         <li><a href="#pricing">Blog</a></li>
         <li><a href="#pricing">Careers</a></li>
-        <li><a href="mailto:support@arvguard.com">Contact</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#02717772726d70764263707465776370662c616d6f">Contact</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -1585,7 +1630,7 @@ body::after {
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Detect touch/mobile — disable custom cursor on touch devices
 const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 const cursor = document.getElementById('cursor');
@@ -1642,29 +1687,24 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal, .step').forEach(el => observer.observe(el));
 
-/* ── SPARKLE CURSOR TRAIL ───────────────────────────────────────────────── */
-(function() {
-  if (isTouchDevice) return; // No sparkles on touch
-  let lastSparkle = 0;
-  document.addEventListener('mousemove', e => {
-    const now = Date.now();
-    if (now - lastSparkle < 80) return; // throttle to ~12 per second
-    lastSparkle = now;
-    const s = document.createElement('div');
-    s.className = 'sparkle';
-    s.style.left = e.clientX + 'px';
-    s.style.top  = e.clientY + 'px';
-    // Slight random offset
-    s.style.marginLeft = (Math.random() * 10 - 5) + 'px';
-    s.style.marginTop  = (Math.random() * 10 - 5) + 'px';
-    s.style.width  = (Math.random() * 3 + 2) + 'px';
-    s.style.height = s.style.width;
-    s.style.opacity = Math.random() * 0.5 + 0.3;
-    document.body.appendChild(s);
-    setTimeout(() => s.remove(), 620);
-  });
-})();
 </script>
+
+<script>
+function setBilling(mode) {
+  var prices = {
+    yearly:  { individual: '$49.99', family: '$99.99', indPeriod: 'per year · 1 user · 7-day free trial', famPeriod: 'per year · up to 4 members · 7-day free trial' },
+    monthly: { individual: '$4.99',  family: '$9.99',  indPeriod: 'per month · 1 user · 7-day free trial', famPeriod: 'per month · up to 4 members · 7-day free trial' }
+  };
+  var p = prices[mode];
+  document.getElementById('price-individual').textContent = p.individual;
+  document.getElementById('price-family').textContent = p.family;
+  document.getElementById('period-individual').textContent = p.indPeriod;
+  document.getElementById('period-family').textContent = p.famPeriod;
+  document.getElementById('toggle-yearly').classList.toggle('active', mode === 'yearly');
+  document.getElementById('toggle-monthly').classList.toggle('active', mode === 'monthly');
+}
+</script>
+
 </body>
 </html>
 
@@ -1855,13 +1895,4 @@ if (!isTouchDevice) {
     if (!heroContent) return;
     const y = window.scrollY;
     if (y < window.innerHeight * 1.2) {
-      heroContent.style.transform = `translateY(${(y * 0.28).toFixed(1)}px)`;
-    }
-  }
-  window.addEventListener('scroll', tickParallax, { passive: true });
-}
-
-})();
-</script>
-</body>
-</html>
+      heroContent.style.transform = `trans
