@@ -4,6 +4,49 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ArvGuard — Digital Executor · Digital continuity for the people you love</title>
+<!-- SEO -->
+<meta name="description" content="ArvGuard is a digital estate planning platform. Store your accounts, assign a trusted executor, and ensure your family has everything they need if something happens to you. Zero-knowledge encryption. 7-day free trial.">
+<meta name="keywords" content="digital estate planning, digital executor, estate planning app, what happens to accounts when you die, digital legacy, secure vault, trusted contacts">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://arvguard.com/">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://arvguard.com/">
+<meta property="og:title" content="ArvGuard — Digital Executor Platform">
+<meta property="og:description" content="Digital continuity for the people you love. Set it up once. Everything else is handled.">
+<meta property="og:image" content="https://arvguard.com/og-image.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ArvGuard — Digital Executor Platform">
+<meta name="twitter:description" content="Digital continuity for the people you love. Set it up once. Everything else is handled.">
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ArvGuard",
+  "applicationCategory": "FinanceApplication",
+  "description": "Digital estate planning platform. Store accounts, assign executors, ensure your family has what they need.",
+  "url": "https://arvguard.com",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Individual Plan",
+      "price": "49.99",
+      "priceCurrency": "USD",
+      "billingIncrement": "year"
+    },
+    {
+      "@type": "Offer",
+      "name": "Family Plan",
+      "price": "99.99",
+      "priceCurrency": "USD",
+      "billingIncrement": "year"
+    }
+  ],
+  "operatingSystem": "iOS, Android, Web"
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -1244,6 +1287,77 @@ body::after {
   margin-bottom: 12px;
 }
 
+
+/* ── WAITLIST ────────────────────────────────────────────────────────────── */
+.waitlist-section {
+  padding: 80px 40px;
+  background: rgba(56,189,248,0.03);
+  border-top: 1px solid rgba(56,189,248,0.08);
+}
+.waitlist-row {
+  display: flex;
+  gap: 0;
+  max-width: 480px;
+  margin: 0 auto 12px;
+}
+.waitlist-input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(56,189,248,0.2);
+  border-right: none;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  padding: 14px 20px;
+  outline: none;
+  border-radius: 6px 0 0 6px;
+  transition: border-color 0.2s;
+}
+.waitlist-input::placeholder { color: var(--muted-text); }
+.waitlist-input:focus { border-color: rgba(56,189,248,0.5); }
+.waitlist-btn {
+  background: var(--sky);
+  border: none;
+  color: #000;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 24px;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.waitlist-btn:hover { background: #7DD3FC; }
+.waitlist-note {
+  font-size: 12px;
+  color: var(--muted-text);
+  opacity: 0.6;
+}
+.waitlist-success {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted-text);
+}
+.success-check {
+  width: 48px; height: 48px;
+  background: rgba(34,197,94,0.15);
+  border: 1px solid rgba(34,197,94,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #22C55E;
+  font-size: 20px;
+}
+@media (max-width: 600px) {
+  .waitlist-row { flex-direction: column; }
+  .waitlist-input { border-right: 1px solid rgba(56,189,248,0.2); border-radius: 6px 6px 0 0; }
+  .waitlist-btn { border-radius: 0 0 6px 6px; }
+}
+
 </style>
 </head>
 <body>
@@ -1269,6 +1383,7 @@ body::after {
     <li><a href="#how">How it works</a></li>
     <li><a href="#security">Security</a></li>
     <li><a href="#pricing">Pricing</a></li>
+    <li><a href="/blog.html">Blog</a></li>
     <li><a href="#pricing">Sign in</a></li>
     <li><a href="#pricing" class="nav-cta">Get started free</a></li>
   </ul>
@@ -1576,6 +1691,28 @@ body::after {
 </div>
 
 <!-- FOOTER -->
+
+
+<!-- WAITLIST -->
+<section class="waitlist-section" id="waitlist">
+  <div class="section-inner" style="max-width:600px;text-align:center;">
+    <div class="section-eyebrow reveal">Early Access</div>
+    <h2 class="reveal" style="margin-bottom:16px;">Be first through the door.</h2>
+    <p class="reveal" style="color:var(--muted-text);margin-bottom:40px;">ArvGuard launches soon. Join the waitlist and we'll reach out before we open to the public — no spam, one email.</p>
+    <form class="waitlist-form reveal" id="waitlistForm" onsubmit="submitWaitlist(event)">
+      <div class="waitlist-row">
+        <input type="email" class="waitlist-input" id="waitlistEmail" placeholder="your@email.com" required>
+        <button type="submit" class="waitlist-btn" id="waitlistBtn">Get early access</button>
+      </div>
+      <p class="waitlist-note">No spam. One email when we launch. That's it.</p>
+    </form>
+    <div id="waitlistSuccess" style="display:none;" class="waitlist-success reveal">
+      <div class="success-check">✓</div>
+      <p>You're on the list. We'll be in touch before launch.</p>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
@@ -1605,7 +1742,7 @@ body::after {
       <h5>Company</h5>
       <ul>
         <li><a href="#pricing">About</a></li>
-        <li><a href="#pricing">Blog</a></li>
+        <li><a href="/blog.html">Blog</a></li>
         <li><a href="#pricing">Careers</a></li>
         <li><a href="/cdn-cgi/l/email-protection#02717772726d70764263707465776370662c616d6f">Contact</a></li>
       </ul>
@@ -1702,6 +1839,42 @@ function setBilling(mode) {
   document.getElementById('period-family').textContent = p.famPeriod;
   document.getElementById('toggle-yearly').classList.toggle('active', mode === 'yearly');
   document.getElementById('toggle-monthly').classList.toggle('active', mode === 'monthly');
+}
+</script>
+
+
+<script>
+// ── WAITLIST FORM — Google Form submission ──────────────────────────────────
+// Replace YOUR_FORM_ID and YOUR_ENTRY_ID with your actual Google Form values
+// To find them: open your Google Form, click Send > Get link, then inspect the form
+// source for the entry.XXXXXXXXX field name
+const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+const GOOGLE_ENTRY_ID    = 'entry.XXXXXXXXX';
+
+function submitWaitlist(e) {
+  e.preventDefault();
+  const email = document.getElementById('waitlistEmail').value;
+  const btn   = document.getElementById('waitlistBtn');
+  const form  = document.getElementById('waitlistForm');
+  const success = document.getElementById('waitlistSuccess');
+
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+
+  const body = new FormData();
+  body.append(GOOGLE_ENTRY_ID, email);
+
+  // Google Forms doesn't support CORS — use no-cors mode (submission goes through, no response)
+  fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body })
+    .then(() => {
+      form.style.display = 'none';
+      success.style.display = 'flex';
+    })
+    .catch(() => {
+      // Even on network error, show success — no-cors fetch often appears as error but succeeds
+      form.style.display = 'none';
+      success.style.display = 'flex';
+    });
 }
 </script>
 

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — ArvGuard</title>
+<meta name="description" content="Practical guides on digital estate planning, protecting your accounts, and making things easier for the people you love.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://arvguard.com/blog.html">
+<meta property="og:title" content="Blog — ArvGuard">
+<meta property="og:description" content="Practical guides on digital estate planning, protecting your accounts, and making things easier for the people you love.">
+<meta property="og:url" content="https://arvguard.com/blog.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #05070C;
+    --bg2: #0A0F18;
+    --sky: #38BDF8;
+    --white: #E8EEF5;
+    --muted: #4A6070;
+    --border: rgba(255,255,255,0.07);
+    --sans: 'DM Sans', sans-serif;
+    --serif: 'DM Serif Display', serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none; z-index: 0;
+  }
+
+  * { position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(5,7,12,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+  .nav-wordmark {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--white);
+    letter-spacing: -0.3px;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--white); }
+  .nav-cta {
+    background: var(--sky) !important;
+    color: #000 !important;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+  }
+
+  /* ── HERO ── */
+  .blog-hero {
+    padding: 80px 48px 64px;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .blog-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: 16px;
+  }
+
+  .blog-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+  }
+
+  .blog-hero p {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .blog-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 64px 48px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 80px;
+    align-items: start;
+  }
+
+  /* ── FEATURED POST ── */
+  .post-featured {
+    display: block;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+    margin-bottom: 48px;
+  }
+  .post-featured:hover {
+    border-color: rgba(56,189,248,0.25);
+    transform: translateY(-2px);
+  }
+
+  .post-featured-inner {
+    padding: 40px;
+  }
+
+  .post-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sky);
+    background: rgba(56,189,248,0.08);
+    border: 1px solid rgba(56,189,248,0.2);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+
+  .post-featured h2 {
+    font-family: var(--serif);
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+
+  .post-featured p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 580px;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .post-meta-dot { width: 3px; height: 3px; background: var(--muted); border-radius: 50%; }
+  .read-more {
+    color: var(--sky);
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  /* ── POST GRID ── */
+  .post-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .post-card {
+    display: block;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .post-card:hover {
+    border-color: rgba(56,189,248,0.2);
+    transform: translateY(-2px);
+  }
+
+  .post-card h3 {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+  .post-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  /* ── SIDEBAR ── */
+  .blog-sidebar { position: sticky; top: 96px; }
+
+  .sidebar-widget {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+
+  .sidebar-widget h4 {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  /* Waitlist widget */
+  .sidebar-waitlist p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .sidebar-input {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(56,189,248,0.2);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 14px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    outline: none;
+    margin-bottom: 10px;
+    transition: border-color 0.2s;
+  }
+  .sidebar-input::placeholder { color: var(--muted); }
+  .sidebar-input:focus { border-color: rgba(56,189,248,0.4); }
+  .sidebar-btn {
+    width: 100%;
+    background: var(--sky);
+    border: none;
+    color: #000;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .sidebar-btn:hover { background: #7DD3FC; }
+  .sidebar-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px;
+    text-align: center;
+    opacity: 0.6;
+  }
+
+  /* Topic tags */
+  .topic-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .topic-tag {
+    font-size: 12px;
+    color: var(--muted);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .topic-tag:hover { color: var(--sky); border-color: rgba(56,189,248,0.3); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    margin-top: 40px;
+  }
+  .footer-left {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .footer-right {
+    display: flex;
+    gap: 24px;
+  }
+  .footer-right a {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-right a:hover { color: var(--white); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .blog-hero { padding: 56px 24px 48px; }
+    .blog-layout { grid-template-columns: 1fr; padding: 48px 24px; gap: 48px; }
+    .blog-sidebar { position: static; }
+    .post-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+  }
+  @media (max-width: 600px) {
+    .nav-links li:not(:last-child) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="26" height="26" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0"  y="0"  width="20" height="20" rx="4" fill="#38BDF8"/>
+      <rect x="26" y="0"  width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+      <rect x="52" y="0"  width="20" height="20" rx="4" fill="#38BDF8"/>
+      <rect x="0"  y="26" width="20" height="20" rx="4" fill="#38BDF8"/>
+      <rect x="26" y="26" width="20" height="20" rx="4" fill="#38BDF8"/>
+      <rect x="52" y="26" width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+      <rect x="0"  y="52" width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+      <rect x="26" y="52" width="20" height="20" rx="4" fill="#38BDF8"/>
+      <rect x="52" y="52" width="20" height="20" rx="4" fill="#38BDF8"/>
+    </svg>
+    <span class="nav-wordmark">ArvGuard</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#how">How it works</a></li>
+    <li><a href="/#security">Security</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/blog.html" class="active">Blog</a></li>
+    <li><a href="/#pricing" class="nav-cta">Get started free</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="blog-hero">
+  <div class="blog-eyebrow">ArvGuard Blog</div>
+  <h1>Guides for people who<br><em>actually plan ahead.</em></h1>
+  <p>Practical thinking on digital estate planning, account security, and making things easier for the people you leave behind.</p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="blog-layout">
+  <main>
+
+    <!-- Featured post -->
+    <a href="/blog/what-happens-to-accounts-when-you-die.html" class="post-featured">
+      <div class="post-featured-inner">
+        <span class="post-tag">Estate Planning</span>
+        <h2>What Actually Happens to Your Accounts When You Die (Nobody Talks About This)</h2>
+        <p>Your will covers your assets. It doesn't cover your passwords. Here's what really happens to your digital accounts when you're gone — and why the legal system isn't set up to help your family the way you think it is.</p>
+        <div class="post-meta">
+          <span>March 10, 2026</span>
+          <div class="post-meta-dot"></div>
+          <span>7 min read</span>
+        </div>
+        <div class="read-more">Read article →</div>
+      </div>
+    </a>
+
+    <!-- Coming soon posts -->
+    <div class="post-grid">
+      <div class="post-card" style="opacity:0.45;cursor:default;">
+        <span class="post-tag" style="opacity:0.5;">Guide</span>
+        <h3>The Digital Estate Planning Checklist: What to Do Before It's Too Late</h3>
+        <p>A practical, no-jargon checklist for getting your digital life organized for the people who'll need to deal with it.</p>
+        <div class="post-meta"><span style="font-size:12px;color:var(--muted);">Coming soon</span></div>
+      </div>
+      <div class="post-card" style="opacity:0.45;cursor:default;">
+        <span class="post-tag" style="opacity:0.5;">Security</span>
+        <h3>Why "My Spouse Knows My Passwords" Isn't a Plan</h3>
+        <p>It's a start. But it has more failure modes than most people realize. Here's how to think about it more clearly.</p>
+        <div class="post-meta"><span style="font-size:12px;color:var(--muted);">Coming soon</span></div>
+      </div>
+      <div class="post-card" style="opacity:0.45;cursor:default;">
+        <span class="post-tag" style="opacity:0.5;">How-To</span>
+        <h3>How to Choose a Digital Executor (And What You're Actually Asking Them to Do)</h3>
+        <p>Most people pick a trusted person without thinking through what that role actually requires. Let's fix that.</p>
+        <div class="post-meta"><span style="font-size:12px;color:var(--muted);">Coming soon</span></div>
+      </div>
+      <div class="post-card" style="opacity:0.45;cursor:default;">
+        <span class="post-tag" style="opacity:0.5;">Explainer</span>
+        <h3>Crypto After Death: Why It's Different and What You Need to Do Now</h3>
+        <p>Unlike bank accounts, lost crypto is just lost. There's no recovery path. Here's how to not be that story.</p>
+        <div class="post-meta"><span style="font-size:12px;color:var(--muted);">Coming soon</span></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="blog-sidebar">
+
+    <!-- Waitlist widget -->
+    <div class="sidebar-widget sidebar-waitlist">
+      <h4>Early Access</h4>
+      <p>ArvGuard launches soon. Join the list to be first through the door.</p>
+      <input type="email" class="sidebar-input" id="sidebarEmail" placeholder="your@email.com">
+      <button class="sidebar-btn" id="sidebarBtn" onclick="submitSidebar()">Get early access</button>
+      <p class="sidebar-note">One email at launch. No spam.</p>
+      <div id="sidebarSuccess" style="display:none;text-align:center;padding:12px 0;">
+        <div style="color:#22C55E;font-size:20px;margin-bottom:6px;">✓</div>
+        <p style="font-size:13px;color:var(--muted);">You're on the list.</p>
+      </div>
+    </div>
+
+    <!-- Topics -->
+    <div class="sidebar-widget">
+      <h4>Topics</h4>
+      <div class="topic-tags">
+        <a href="#" class="topic-tag">Estate Planning</a>
+        <a href="#" class="topic-tag">Account Security</a>
+        <a href="#" class="topic-tag">Digital Legacy</a>
+        <a href="#" class="topic-tag">Trusted Contacts</a>
+        <a href="#" class="topic-tag">Crypto</a>
+        <a href="#" class="topic-tag">Password Management</a>
+        <a href="#" class="topic-tag">Family Finance</a>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-left">© 2026 ArvGuard LLC</span>
+  <div class="footer-right">
+    <a href="/">Home</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="mailto:support@arvguard.com">Contact</a>
+  </div>
+</footer>
+
+<script>
+const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+const GOOGLE_ENTRY_ID    = 'entry.XXXXXXXXX';
+
+function submitSidebar() {
+  const email = document.getElementById('sidebarEmail').value;
+  const btn   = document.getElementById('sidebarBtn');
+  const input = document.getElementById('sidebarEmail');
+  const success = document.getElementById('sidebarSuccess');
+  if (!email || !email.includes('@')) {
+    input.style.borderColor = 'rgba(248,113,113,0.5)';
+    setTimeout(() => input.style.borderColor = '', 1500);
+    return;
+  }
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+  const body = new FormData();
+  body.append(GOOGLE_ENTRY_ID, email);
+  fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body })
+    .finally(() => {
+      input.style.display = 'none';
+      btn.style.display = 'none';
+      success.style.display = 'block';
+    });
+}
+</script>
+
+</body>
+</html>
