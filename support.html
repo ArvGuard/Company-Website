@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — ArvGuard</title>
+<meta name="description" content="Get help with ArvGuard. Contact our support team for questions about your account, vault, alive check system, or billing.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://arvguard.com/support.html">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #05070C;
+  color: #E8EEF5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(56,189,248,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,189,248,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none; z-index: 0;
+}
+* { position: relative; z-index: 1; }
+
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 64px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(5,7,12,0.92);
+  backdrop-filter: blur(12px);
+}
+.nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-wordmark { font-weight: 600; font-size: 18px; color: #E8EEF5; letter-spacing: -0.3px; }
+.nav-back { font-size: 13px; color: #4A6070; text-decoration: none; transition: color 0.2s; }
+.nav-back:hover { color: #38BDF8; }
+
+main {
+  flex: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 64px 24px 80px;
+  width: 100%;
+}
+
+.page-eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #38BDF8; margin-bottom: 16px;
+}
+.page-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 400; color: #E8EEF5;
+  line-height: 1.15; margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+.page-subtitle {
+  font-size: 15px; color: #4A6070;
+  line-height: 1.7; margin-bottom: 48px;
+}
+
+/* CONTACT CARDS */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.contact-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 24px;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+  display: block;
+}
+.contact-card:hover {
+  border-color: rgba(56,189,248,0.25);
+  transform: translateY(-2px);
+}
+.contact-card-icon {
+  width: 36px; height: 36px;
+  background: rgba(56,189,248,0.08);
+  border: 1px solid rgba(56,189,248,0.15);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+  font-size: 16px;
+}
+.contact-card h3 { font-size: 15px; font-weight: 600; color: #E8EEF5; margin-bottom: 6px; }
+.contact-card p { font-size: 13px; color: #4A6070; line-height: 1.5; }
+.contact-card .contact-value {
+  font-size: 13px; color: #38BDF8;
+  margin-top: 10px; display: block;
+}
+
+/* FAQ */
+.faq-section h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px; font-weight: 400;
+  color: #E8EEF5; margin-bottom: 24px;
+  letter-spacing: -0.3px;
+}
+.faq-item {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 20px 0;
+}
+.faq-item:last-child { border-bottom: none; }
+.faq-q {
+  font-size: 15px; font-weight: 500;
+  color: #E8EEF5; margin-bottom: 10px;
+}
+.faq-a {
+  font-size: 14px; color: #4A6070;
+  line-height: 1.7;
+}
+.faq-a a { color: #38BDF8; text-decoration: none; }
+.faq-a a:hover { text-decoration: underline; }
+
+/* RESPONSE TIME */
+.response-note {
+  background: rgba(56,189,248,0.04);
+  border: 1px solid rgba(56,189,248,0.1);
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 13px;
+  color: #4A6070;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+.response-note strong { color: #C8D8E4; }
+
+footer {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 24px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-left { font-size: 12px; color: #2D3E50; }
+.footer-right { display: flex; gap: 20px; }
+.footer-right a { font-size: 12px; color: #2D3E50; text-decoration: none; transition: color 0.2s; }
+.footer-right a:hover { color: #38BDF8; }
+
+@media (max-width: 600px) {
+  nav { padding: 0 20px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  footer { padding: 20px 24px; flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="24" height="24" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0"  y="0"  width="20" height="20" rx="4" fill="#38BDF8"/>
+      <rect x="26" y="0"  width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+      <rect x="52" y="0"  width="20" height="20" rx="4" fill="#38BDF8"/>
+      <rect x="0"  y="26" width="20" height="20" rx="4" fill="#38BDF8"/>
+      <rect x="26" y="26" width="20" height="20" rx="4" fill="#38BDF8"/>
+      <rect x="52" y="26" width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+      <rect x="0"  y="52" width="20" height="20" rx="4" fill="#38BDF8" opacity="0.18"/>
+      <rect x="26" y="52" width="20" height="20" rx="4" fill="#38BDF8"/>
+      <rect x="52" y="52" width="20" height="20" rx="4" fill="#38BDF8"/>
+    </svg>
+    <span class="nav-wordmark">ArvGuard</span>
+  </a>
+  <a href="/" class="nav-back">← Back to home</a>
+</nav>
+
+<main>
+
+  <div class="page-eyebrow">Help &amp; Support</div>
+  <h1 class="page-title">We're here to help.</h1>
+  <p class="page-subtitle">ArvGuard is operated by Todd Myers in Star, Idaho. Reach out directly — you'll get a response from a real person, not a bot.</p>
+
+  <div class="response-note">
+    <strong>Response time:</strong> We typically respond within 1 business day. For urgent account security issues, include "URGENT" in your subject line and we'll prioritize your message.
+  </div>
+
+  <div class="contact-grid">
+    <a href="mailto:support@arvguard.com" class="contact-card">
+      <div class="contact-card-icon">✉</div>
+      <h3>General Support</h3>
+      <p>Account questions, vault setup, alive check configuration, and general help.</p>
+      <span class="contact-value">support@arvguard.com</span>
+    </a>
+    <a href="mailto:legal@arvguard.com" class="contact-card">
+      <div class="contact-card-icon">⚖</div>
+      <h3>Legal &amp; Privacy</h3>
+      <p>Privacy requests, data deletion, GDPR inquiries, and legal correspondence.</p>
+      <span class="contact-value">legal@arvguard.com</span>
+    </a>
+    <a href="mailto:security@arvguard.com" class="contact-card">
+      <div class="contact-card-icon">🔒</div>
+      <h3>Security</h3>
+      <p>Report a vulnerability, suspicious account activity, or security concern.</p>
+      <span class="contact-value">security@arvguard.com</span>
+    </a>
+    <a href="mailto:support@arvguard.com" class="contact-card">
+      <div class="contact-card-icon">💳</div>
+      <h3>Billing</h3>
+      <p>Subscription questions, cancellations, refund requests, and payment issues.</p>
+      <span class="contact-value">support@arvguard.com</span>
+    </a>
+  </div>
+
+  <div class="faq-section">
+    <h2>Common questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">How do I opt out of SMS notifications?</div>
+      <div class="faq-a">Reply <strong>STOP</strong> to any ArvGuard text message. You'll receive one final confirmation and no further messages will be sent. You can also manage notification preferences in your account settings.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How do I cancel my subscription?</div>
+      <div class="faq-a">You can cancel anytime from your account Settings → Subscription. Your access continues until the end of your current billing period. Email <a href="mailto:support@arvguard.com">support@arvguard.com</a> if you need help.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What happens to my vault if I cancel?</div>
+      <div class="faq-a">Your vault data is retained for 30 days after cancellation, giving you time to export your information. After 30 days, your encrypted vault is permanently deleted. We cannot recover it after deletion.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">I didn't get my alive check reminder. What happened?</div>
+      <div class="faq-a">Check that your phone number is correct in account settings and that you haven't opted out of SMS. If the issue continues, email <a href="mailto:support@arvguard.com">support@arvguard.com</a> with your account email address.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Can I request deletion of my data?</div>
+      <div class="faq-a">Yes. Email <a href="mailto:legal@arvguard.com">legal@arvguard.com</a> with the subject "Data Deletion Request" and your account email. We'll process the request within 30 days in accordance with our <a href="/privacy-policy.html">Privacy Policy</a>.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">I found a security vulnerability. How do I report it?</div>
+      <div class="faq-a">Email <a href="mailto:security@arvguard.com">security@arvguard.com</a> with details. Please do not disclose publicly until we've had a chance to address the issue. We take all security reports seriously and will respond promptly.</div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <span class="footer-left">© 2026 ArvGuard · Todd Myers, Star, Idaho 83669</span>
+  <div class="footer-right">
+    <a href="/">Home</a>
+    <a href="/privacy-policy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/sms-policy.html">SMS Policy</a>
+  </div>
+</footer>
+
+</body>
+</html>
